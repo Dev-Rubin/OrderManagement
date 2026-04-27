@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Backend/" />
+  <Folder Name="/Backend/Main/">
+    <Project Path="OrderManagement.Application/OrderManagement.Application.csproj" Id="b94675d6-c4c6-49dc-be5a-0a1dcc2edc1b" />
+    <Project Path="OrderManagement.Domain/OrderManagement.Domain.csproj" Id="0ff22610-2168-43c2-afdb-934fbf8aa537" />
+    <Project Path="OrderManagement.Infrastructure/OrderManagement.Infrastructure.csproj" Id="1b24f517-4d44-41c5-8224-969dce81ccdf" />
+    <Project Path="OrderManagement.Logic/OrderManagement.Logic.csproj" />
+    <Project Path="OrderManagementMicroservice/OrderManagement.Microservice.csproj" />
+    <Project Path="OrderManagementPersistence/OrderManagement.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Frontend/" />
+</Solution>
