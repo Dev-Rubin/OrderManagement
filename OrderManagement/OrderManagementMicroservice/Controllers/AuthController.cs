@@ -19,7 +19,6 @@ namespace OrderManagement.Microservice.Controllers
         public async Task<IActionResult> Register(RegisterUserCommand cmd)
             => Ok(await _mediator.Send(cmd));
 
-
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginCommand cmd)
             => Ok(await _mediator.Send(cmd));
@@ -30,7 +29,7 @@ namespace OrderManagement.Microservice.Controllers
 
         [HttpPost("generate-otp")]
         public async Task<IActionResult> GenerateOtp(GenerateOtpCommand request)
-    => Ok(await _mediator.Send(request));
+            => Ok(await _mediator.Send(request));
 
         [HttpPost("verify-otp")]
         public async Task<IActionResult> VerifyOtp(VerifyOtpCommand request)

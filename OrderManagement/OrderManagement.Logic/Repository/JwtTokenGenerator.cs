@@ -40,7 +40,7 @@ namespace OrderManagement.Logic.Repository
             };
             var value = _config["Jwt:ExpireHours"];
             int expireHours = int.TryParse(value, out var data) ? data : 1;
-            DateTime expires = DateTime.UtcNow.AddHours(expireHours);
+            DateTime expires = DateTime.Now.AddHours(expireHours);
 
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
@@ -95,7 +95,7 @@ namespace OrderManagement.Logic.Repository
                 .WhereTokenIs(refreshToken)
                 .GetFirstOrDefaultAsync();
 
-            if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiryDate < DateTime.UtcNow)
+            if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiryDate < DateTime.Now)
                 return Result<AuthResponseDto>.Failure("Invalid refresh token");
 
             if (storedToken.User == null) 

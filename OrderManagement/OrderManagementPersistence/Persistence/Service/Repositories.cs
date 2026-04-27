@@ -51,13 +51,13 @@ namespace EMS.Infrastructure.Persistence.Service
 
                 if (entity.Id <= 0)
                 {
-                    entity.AddedDate = DateTime.UtcNow;
+                    entity.AddedDate = DateTime.Now;
                     _unitOfWork.Set<T>().Add(entity);
                     _unitOfWork.Entry(entity).State = EntityState.Added;
                 }
                 else
                 {
-                    entity.UpdatedDate = DateTime.UtcNow;
+                    entity.UpdatedDate = DateTime.Now;
                     _unitOfWork.Set<T>().Update(entity);
                     _unitOfWork.Entry(entity).State = EntityState.Modified;
                 }

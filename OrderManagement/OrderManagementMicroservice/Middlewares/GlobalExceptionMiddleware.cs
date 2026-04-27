@@ -58,7 +58,7 @@ namespace OrderManagement.Microservice.Middlewares
                 LineNumber = lineNumber,
                 Message = ex.Message,
                 StatusCode = statusCode,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.Now
             };
 
             dbContext.ExceptionLogs.Add(log);

@@ -69,12 +69,12 @@ namespace OrderManagement.Infrastructure.Persistence
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.AddedDate = DateTime.UtcNow;
+                    entry.Entity.AddedDate = DateTime.Now;
                     entry.Entity.AddedByUserId = userId;
                 }
                 else if (entry.State == EntityState.Modified)
                 {
-                    entry.Entity.UpdatedDate = DateTime.UtcNow;
+                    entry.Entity.UpdatedDate = DateTime.Now;
                     entry.Entity.UpdatedByUserId = userId;
                 }
             }

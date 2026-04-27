@@ -74,7 +74,7 @@ namespace OrderManagement.Logic.Repository
         public async Task<Result> GenerateOtpAsync(GenerateOtpCommand request)
         {
             string otp;
-            DateTime expairesAt = DateTime.UtcNow.AddMinutes(5);
+            DateTime expairesAt = DateTime.Now.AddMinutes(5);
             if (request.IsEmail)
             {
                 var user = await Queries.New<IUserQuery>()
@@ -136,7 +136,7 @@ namespace OrderManagement.Logic.Repository
             var record = await Queries.New<IUserOtpQuery>()
                 .Where(x=> x.OtpCode == request.Otp &&
                     !x.IsUsed &&
-                    x.ExpiresAt > DateTime.UtcNow
+                    x.ExpiresAt > DateTime.Now
                 ).OrderByDescending(x => x.Id)
                 .FirstOrDefaultAsync();
 

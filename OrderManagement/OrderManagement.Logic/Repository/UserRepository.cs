@@ -1,13 +1,14 @@
-﻿using OrderManagement.Infrastructure.Persistence.Service;
-using OrderManagement.Application.Command.Auth;
+﻿using OrderManagement.Application.Command.Auth;
+using OrderManagement.Application.Query.User;
 using OrderManagement.Application.Queryables;
 using OrderManagement.Application.Repository;
 using OrderManagement.Application.Response;
 using OrderManagement.Domain.Entities;
+using OrderManagement.Domain.Enums;
 using OrderManagement.Infrastructure.Persistence;
 using OrderManagement.Infrastructure.Persistence.Interface;
-using OrderManagement.Persistence.Persistence.Common;
 using OrderManagement.Infrastructure.Persistence.Service;
+using OrderManagement.Persistence.Persistence.Common;
 
 namespace OrderManagement.Logic.Repository
 {
@@ -107,6 +108,30 @@ namespace OrderManagement.Logic.Repository
             ).ConfigureAwait(false);
 
             return new Result(result.Result.IsSuccessful, result.Result.Message);
+        }
+
+        public Task<List<AutoCompleteItem>> GetRolesAutocompleteAsync(GetRolesAutocompleteQuery qry)
+        {
+            var query = Enum.GetValues(typeof(UserRole))
+                .Cast<UserRole>();
+
+            if (!string.IsNullOrWhiteSpace(qry.Term))
+            {
+                query = query.Where(x =>
+                    x.GetDisplayName().Contains(qry.Term, StringComparison.OrdinalIgnoreCase) ||
+                    x.ToString().Contains(qry.Term, StringComparison.OrdinalIgnoreCase));
+            }
+
+            var items = query
+                .Select(x => new AutoCompleteItem
+                {
+                    Id = (int)x,
+                    Label = x.GetDisplayName(),
+                    Respon = x.ToString()
+                })
+                .ToList();
+
+            return Task.FromResult(items);
         }
     }
 }
