@@ -27,5 +27,17 @@ namespace OrderManagement.Microservice.Controllers
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh(RefreshTokenCommand cmd)
             => Ok(await _mediator.Send(cmd));
+
+        [HttpPost("generate-otp")]
+        public async Task<IActionResult> GenerateOtp(GenerateOtpCommand request)
+    => Ok(await _mediator.Send(request));
+
+        [HttpPost("verify-otp")]
+        public async Task<IActionResult> VerifyOtp(VerifyOtpCommand request)
+            => Ok(await _mediator.Send(request));
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordCommand request)
+            => Ok(await _mediator.Send(request));
     }
 }

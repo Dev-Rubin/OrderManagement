@@ -10,5 +10,6 @@ namespace OrderManagement.Application.Repository
         Task<User?> GetByUserNameAsync(string userName);
         Task<Result> RegisterUserAsync(RegisterUserCommand cmd);
         Task<Result<AuthResponseDto>> LoginUserAsync(LoginCommand cmd);
+        Task<Result> ChangePasswordAsync(ChangePasswordCommand request);
     }
 }

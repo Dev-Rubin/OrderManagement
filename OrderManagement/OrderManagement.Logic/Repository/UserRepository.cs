@@ -79,6 +79,34 @@ namespace OrderManagement.Logic.Repository
             
         }
 
-        
+        public async Task<Result> ChangePasswordAsync(ChangePasswordCommand request)
+        {
+            var user = await Queries.New<IUserQuery>()
+                .IncludeCredential()
+                .WhereIdIs(request.UserId)
+                .GetLastOrDefaultAsync();
+
+            if (user == null || user.Credential == null)
+                return Result.Failure("User not found.");
+
+            var isValid = _hasher.Verify(
+                request.CurrentPassword,
+                user.Credential.PasswordHash,
+                user.Credential.PasswordSalt
+            );
+
+            if (!isValid)
+                return Result.Failure("Current password is incorrect.");
+            _hasher.CreatePasswordHash(request.NewPassword, out string newHash, out string newSalt);
+            user.SetCredential(newHash, newSalt);
+            var result = await Transact.ExecuteWithTransactionAsync(
+                () =>
+                {
+                    Repository.SaveUpdate(user);
+                }, "Password changed successfully.", "Failed to change password."
+            ).ConfigureAwait(false);
+
+            return new Result(result.Result.IsSuccessful, result.Result.Message);
+        }
     }
 }

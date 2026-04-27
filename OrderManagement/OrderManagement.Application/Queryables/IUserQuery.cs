@@ -8,6 +8,7 @@ namespace OrderManagement.Application.Queryables
         IUserQuery WhereIdIs(int id);
         IUserQuery WhereNameIs(string name);
         IUserQuery WhereEmailIs(string email);
+        IUserQuery WherePhoneIs(string email);
         IUserQuery IncludeCredential();
 
     }

@@ -50,6 +50,16 @@ namespace OrderManagement.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new DeliverySettingsConfiguration());
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetProperties())
+                .Where(p => p.ClrType == typeof(DateTime) || p.ClrType == typeof(DateTime?)))
+            {
+                property.SetColumnType("timestamp without time zone");
+            }
         }
         private void ApplyAuditInfo()
         {
@@ -78,6 +88,10 @@ namespace OrderManagement.Infrastructure.Persistence
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
         public DbSet<Payment> Payments => Set<Payment>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Product> Products => Set<Product>();        
+        public DbSet<DeliverySettings> DeliverySettings => Set<DeliverySettings>();
+
 
     }
 }

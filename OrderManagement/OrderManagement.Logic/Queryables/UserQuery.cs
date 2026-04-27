@@ -34,5 +34,11 @@ namespace OrderManagement.Logic.Queryables
            Where(x => x.UserName == name);
             return this;
         }
+
+        public IUserQuery WherePhoneIs(string phoneNumber)
+        {
+            Where(x => x.PhoneNumber == phoneNumber);
+            return this;
+        }
     }
 }

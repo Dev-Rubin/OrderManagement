@@ -6,6 +6,7 @@ using OrderManagement.Logic;
 using OrderManagement.Microservice;
 using OrderManagement.Microservice.Middlewares;
 using OrderManagement.Persistence;
+using OrderManagement.Infrastructure;
 using Scalar.AspNetCore;
 using Serilog;
 using System.Text;
@@ -35,6 +36,7 @@ builder.Services.AddMapper();
 builder.Services.AddLogic(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
 #endregion
 
 

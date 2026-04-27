@@ -1,10 +1,11 @@
-﻿using OrderManagement.Infrastructure.Persistence;
+﻿using EMS.Infrastructure.Persistence.Service;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+using OrderManagement.Infrastructure.Persistence;
 using OrderManagement.Infrastructure.Persistence.Interface;
 using OrderManagement.Infrastructure.Persistence.Service;
-using EMS.Infrastructure.Persistence.Service;
 
 namespace OrderManagement.Persistence
 {
@@ -12,13 +13,15 @@ namespace OrderManagement.Persistence
     {
         public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContextFactory<AppDbContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)
-                ),
-                ServiceLifetime.Scoped
-            );
+            services.AddDbContext<AppDbContext>(options =>
+                        options.UseNpgsql(
+                            configuration.GetConnectionString("DefaultConnection"),
+                            b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)
+                        )
+                        .ConfigureWarnings(w =>
+                            w.Ignore(RelationalEventId.PendingModelChangesWarning)),
+                        ServiceLifetime.Scoped
+                    );
             services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
 
             services.AddScoped<IAppReadDbConnection, AppReadDbConnection>();

@@ -22,5 +22,8 @@ namespace OrderManagement.Infrastructure.Persistence.Interface
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
         public DbSet<Payment> Payments => Set<Payment>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<DeliverySettings> DeliverySettings => Set<DeliverySettings>();
     }
 }
