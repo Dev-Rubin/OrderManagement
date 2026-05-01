@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace OrderManagement.Infrastructure.Persistence.Interface
@@ -62,5 +63,6 @@ namespace OrderManagement.Infrastructure.Persistence.Interface
         /// </summary>
         /// <returns></returns>
         List<TEntity> GetPageList(int pageSize, int pageIndex);
+        Task<bool> GetAnyAsync();
     }
 }

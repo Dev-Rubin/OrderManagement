@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace OrderManagement.Microservice.Controllers
 {
     [ApiController]
-    [Route("api/dashboard")]
+    [Route("api/[controller]")]
     public class DashboardController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -20,7 +20,7 @@ namespace OrderManagement.Microservice.Controllers
         public async Task<IActionResult> GetDashboardData()
         {
             
-            return Ok("sedfsjd");
+            return Ok("Test API");
         }
     }
 }

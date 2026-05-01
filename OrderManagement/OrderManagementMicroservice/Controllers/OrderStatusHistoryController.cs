@@ -9,11 +9,11 @@ namespace OrderManagement.Microservice.Controllers
     [Route("api/[controller]")]
     public class OrderStatusHistoryController(IMediator mediator) : ControllerBase
     {
-        [HttpGet("by-order/{orderId}")]
-        public async Task<IActionResult> GetByOrder(int orderId)
+        [HttpGet("get-orderstatus-history-by-orderid")]
+        public async Task<IActionResult> GetByOrder([FromQuery]int orderId)
             => Ok(await mediator.Send(new GetOrderStatusHistoryQuery(orderId)));
 
-        [HttpPost]
+        [HttpPost("post-logorderstatus")]
         public async Task<IActionResult> Log([FromBody] LogOrderStatusCommand command)
         {
             var result = await mediator.Send(command);

@@ -12,8 +12,8 @@ using OrderManagement.Infrastructure.Persistence;
 namespace OrderManagement.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260427122832_Initialcreate")]
-    partial class Initialcreate
+    [Migration("20260501042621_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,129 @@ namespace OrderManagement.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Catalog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("CatalogDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("ScheduledPublishAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("WhatsAppMessageTemplate")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MerchantId");
+
+                    b.ToTable("Catalogs", "order");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.CatalogItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CatalogId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CatalogId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CatalogItems", "order");
+                });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Category", b =>
                 {
@@ -58,45 +181,112 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 870, DateTimeKind.Local).AddTicks(3843),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 488, DateTimeKind.Local).AddTicks(2745),
                             Name = "Batters"
                         },
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 871, DateTimeKind.Local).AddTicks(6895),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3041),
                             Name = "Accompaniments"
                         },
                         new
                         {
                             Id = 3,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 871, DateTimeKind.Local).AddTicks(6908),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3064),
                             Name = "Ready to Eats"
                         },
                         new
                         {
                             Id = 4,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 871, DateTimeKind.Local).AddTicks(6909),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3066),
                             Name = "Tiffin Items"
                         },
                         new
                         {
                             Id = 5,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 871, DateTimeKind.Local).AddTicks(6911),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3067),
                             Name = "Podis"
                         },
                         new
                         {
                             Id = 6,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 871, DateTimeKind.Local).AddTicks(6914),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3068),
                             Name = "Add Ons"
                         },
                         new
                         {
                             Id = 7,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 871, DateTimeKind.Local).AddTicks(6915),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3070),
                             Name = "Sweet & Namkeen"
                         });
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.CustomerProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Block")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("FlatOrVillaNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastOrderAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("MerchantSocietyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MobileNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<int>("TotalOrders")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("WhatsAppId")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MerchantSocietyId");
+
+                    b.HasIndex("UserId", "MerchantSocietyId")
+                        .IsUnique();
+
+                    b.ToTable("CustomerProfiles", "user");
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.DeliverySettings", b =>
@@ -139,7 +329,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 882, DateTimeKind.Local).AddTicks(2095),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 507, DateTimeKind.Local).AddTicks(801),
                             MaxDeliveryCharge = 40m,
                             MaxParcelCharge = 15m,
                             MinDeliveryCharge = 25m,
@@ -189,6 +379,114 @@ namespace OrderManagement.Persistence.Migrations
                     b.ToTable("ExceptionLogs", "error");
                 });
 
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Merchant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int?>("AdminUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("BusinessName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LogoUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("OwnerName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("WhatsAppNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdminUserId");
+
+                    b.ToTable("Merchants", "user");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.MerchantSociety", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DeliveryInstructions")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SocietyId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SocietyId");
+
+                    b.HasIndex("MerchantId", "SocietyId")
+                        .IsUnique();
+
+                    b.ToTable("MerchantSocieties", "user");
+                });
+
             modelBuilder.Entity("OrderManagement.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -222,6 +520,9 @@ namespace OrderManagement.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(false);
+
+                    b.Property<int>("MerchantSocietyId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(500)
@@ -258,6 +559,8 @@ namespace OrderManagement.Persistence.Migrations
 
                     b.HasIndex("AddedDate")
                         .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("MerchantSocietyId");
 
                     b.HasIndex("OrderNumber")
                         .IsUnique();
@@ -320,6 +623,115 @@ namespace OrderManagement.Persistence.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems", "order");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.OrderStatusHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("ChangedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FromStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int>("ToStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChangedByUserId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderStatusHistories", "order");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.OrderTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CustomFieldsJson")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("RequireBlock")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireFlatVilla")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireMobile")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireName")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireSociety")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireWhatsApp")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TemplateName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MerchantId", "IsDefault")
+                        .IsUnique()
+                        .HasFilter("\"IsDefault\" = true");
+
+                    b.ToTable("OrderTemplates", "order");
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Payment", b =>
@@ -458,7 +870,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(639),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(6440),
                             CategoryId = 1,
                             Name = "Idly Dosa Batter",
                             PresentCost = 70m,
@@ -467,7 +879,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3048),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9365),
                             CategoryId = 1,
                             Name = "Appam Batter",
                             PresentCost = 100m,
@@ -476,7 +888,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3054),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9373),
                             CategoryId = 1,
                             Name = "4 Millets",
                             PresentCost = 140m,
@@ -485,7 +897,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 4,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3056),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9392),
                             CategoryId = 1,
                             Name = "Pesarat Dosa",
                             PresentCost = 120m,
@@ -494,7 +906,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 5,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3057),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9393),
                             CategoryId = 1,
                             Name = "Rava Dosa",
                             PresentCost = 100m,
@@ -503,7 +915,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 6,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3059),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9395),
                             CategoryId = 1,
                             Name = "Paddu / Paniyaram Batter",
                             PresentCost = 120m,
@@ -512,7 +924,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 7,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3060),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9397),
                             CategoryId = 1,
                             Name = "Udin Vada Batter",
                             PresentCost = 100m,
@@ -521,7 +933,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 8,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3061),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9399),
                             CategoryId = 1,
                             Name = "Red Rice",
                             PresentCost = 100m,
@@ -530,7 +942,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 9,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3063),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9401),
                             CategoryId = 1,
                             Name = "Ragi Dosa",
                             PresentCost = 100m,
@@ -539,7 +951,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 10,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3064),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9403),
                             CategoryId = 1,
                             Name = "Banana Stem Batter",
                             PresentCost = 120m,
@@ -548,7 +960,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 11,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3065),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9405),
                             CategoryId = 1,
                             Name = "Moringa Dosa",
                             PresentCost = 120m,
@@ -557,7 +969,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 12,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3067),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9407),
                             CategoryId = 1,
                             Name = "Palak Dosa Batter",
                             PresentCost = 120m,
@@ -566,7 +978,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 13,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3135),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9442),
                             CategoryId = 1,
                             Name = "Peanut Dosa Batter",
                             PresentCost = 120m,
@@ -575,7 +987,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 14,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3137),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9445),
                             CategoryId = 1,
                             Name = "Curry Leaf Dosa",
                             PresentCost = 120m,
@@ -584,7 +996,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 15,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3138),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9447),
                             CategoryId = 1,
                             Name = "Multi Dhal / Adai Batter",
                             PresentCost = 120m,
@@ -593,7 +1005,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 16,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3140),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9449),
                             CategoryId = 1,
                             Name = "Garlic Dosa Batter",
                             PresentCost = 120m,
@@ -602,7 +1014,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 17,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3141),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9451),
                             CategoryId = 1,
                             Name = "Wheat Dosa Batter",
                             PresentCost = 100m,
@@ -611,7 +1023,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 18,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3143),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9453),
                             CategoryId = 2,
                             Name = "Coconut Chutney",
                             PresentCost = 30m,
@@ -620,7 +1032,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 19,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3144),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9455),
                             CategoryId = 2,
                             Name = "Peanut Chutney",
                             PresentCost = 30m,
@@ -630,7 +1042,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 20,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3596),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(4),
                             CategoryId = 2,
                             Name = "Tomato Chutney",
                             PresentCost = 30m,
@@ -640,7 +1052,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 21,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3601),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(10),
                             CategoryId = 2,
                             Name = "Garlic Chutney",
                             PresentCost = 35m,
@@ -650,7 +1062,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 22,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3603),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(13),
                             CategoryId = 2,
                             Name = "Onion Chutney",
                             PresentCost = 30m,
@@ -660,7 +1072,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 23,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3604),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(15),
                             CategoryId = 2,
                             Name = "Mint Chutney",
                             PresentCost = 30m,
@@ -670,7 +1082,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 24,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3606),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(17),
                             CategoryId = 2,
                             Name = "Chennai Tiffin Sambar",
                             PresentCost = 30m,
@@ -680,7 +1092,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 25,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3627),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(19),
                             CategoryId = 2,
                             Name = "Coconut Milk",
                             PresentCost = 100m,
@@ -689,7 +1101,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 26,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3628),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(49),
                             CategoryId = 2,
                             Name = "Kadala Curry",
                             PresentCost = 100m,
@@ -699,7 +1111,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 27,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3630),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(51),
                             CategoryId = 3,
                             Name = "Plain Sevai",
                             PresentCost = 100m,
@@ -708,7 +1120,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 28,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3631),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(53),
                             CategoryId = 3,
                             Name = "Idiyappam",
                             PresentCost = 15m,
@@ -717,7 +1129,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 29,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3632),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(55),
                             CategoryId = 3,
                             Name = "Regular Idly",
                             PresentCost = 10m,
@@ -727,7 +1139,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 30,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3634),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(57),
                             CategoryId = 3,
                             Name = "Puttu / 1 Cylinder",
                             PresentCost = 80m,
@@ -737,7 +1149,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 31,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3636),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(59),
                             CategoryId = 3,
                             Name = "Mini Podi Idly",
                             PresentCost = 100m,
@@ -747,7 +1159,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 32,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3637),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(61),
                             CategoryId = 3,
                             Name = "Mini Idly Sambar",
                             PresentCost = 100m,
@@ -757,7 +1169,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 33,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3639),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(63),
                             CategoryId = 3,
                             Name = "Lemon Sevai",
                             PresentCost = 75m,
@@ -767,7 +1179,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 34,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3640),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(65),
                             CategoryId = 3,
                             Name = "Coconut Sevai",
                             PresentCost = 100m,
@@ -777,7 +1189,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 35,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3642),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(67),
                             CategoryId = 3,
                             Name = "Tomato Sevai",
                             PresentCost = 100m,
@@ -787,7 +1199,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 36,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3643),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(69),
                             CategoryId = 3,
                             Name = "Garlic Sevai",
                             PresentCost = 100m,
@@ -797,7 +1209,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 37,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3658),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(71),
                             CategoryId = 3,
                             Name = "Sweet Sevai",
                             PresentCost = 100m,
@@ -807,7 +1219,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 38,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3660),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(90),
                             CategoryId = 3,
                             Name = "Puliyogare Sevai",
                             PresentCost = 100m,
@@ -817,7 +1229,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 39,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3661),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(92),
                             CategoryId = 4,
                             Name = "Masal Dosa (with Sambar & Chutney)",
                             PresentCost = 65m,
@@ -827,7 +1239,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 40,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3663),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(95),
                             CategoryId = 4,
                             Name = "Puri with Kurma - 3 Pieces",
                             PresentCost = 80m,
@@ -837,7 +1249,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 41,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3664),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(97),
                             CategoryId = 4,
                             Name = "Chapathi",
                             PresentCost = 15m,
@@ -846,7 +1258,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 42,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3666),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(99),
                             CategoryId = 4,
                             Name = "Sunday Fuel - Pongal, Vada with Sambar & Chutney (Sunday only)",
                             PresentCost = 80m,
@@ -856,7 +1268,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 43,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3667),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(101),
                             CategoryId = 4,
                             Name = "Thatte Idly, Vada with Sambar & Chutney (Saturday only)",
                             PresentCost = 60m,
@@ -866,7 +1278,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 44,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3669),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(103),
                             CategoryId = 5,
                             Name = "Sambar Podi",
                             PresentCost = 160m,
@@ -875,7 +1287,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 45,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3670),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(106),
                             CategoryId = 5,
                             Name = "Idili/Dosa Podi",
                             PresentCost = 160m,
@@ -884,7 +1296,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 46,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3672),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(107),
                             CategoryId = 5,
                             Name = "Gunpowder Podi",
                             PresentCost = 80m,
@@ -893,7 +1305,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 47,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3673),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(109),
                             CategoryId = 5,
                             Name = "Groundnut Podi",
                             PresentCost = 80m,
@@ -902,7 +1314,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 48,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3674),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(122),
                             CategoryId = 6,
                             Name = "Grated Coconut",
                             PresentCost = 160m,
@@ -912,7 +1324,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 49,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3677),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(124),
                             CategoryId = 7,
                             Name = "Adhirasam (Kajaya)",
                             PresentCost = 60m,
@@ -922,7 +1334,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 50,
-                            AddedDate = new DateTime(2026, 4, 27, 17, 58, 31, 881, DateTimeKind.Local).AddTicks(3678),
+                            AddedDate = new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(127),
                             CategoryId = 7,
                             Name = "Thengapal Muruku (Big)",
                             PresentCost = 60m,
@@ -971,6 +1383,51 @@ namespace OrderManagement.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens", "user");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Society", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Area")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("PinCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<int?>("UpdatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Societies", "user");
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.User", b =>
@@ -1080,13 +1537,98 @@ namespace OrderManagement.Persistence.Migrations
                     b.ToTable("UserCredentials", "user");
                 });
 
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Catalog", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.Merchant", "Merchant")
+                        .WithMany("Catalogs")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Merchant");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.CatalogItem", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.Catalog", "Catalog")
+                        .WithMany("Items")
+                        .HasForeignKey("CatalogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderManagement.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Catalog");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.CustomerProfile", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.MerchantSociety", "MerchantSociety")
+                        .WithMany("CustomerProfiles")
+                        .HasForeignKey("MerchantSocietyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderManagement.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MerchantSociety");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Merchant", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.User", "AdminUser")
+                        .WithMany()
+                        .HasForeignKey("AdminUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("AdminUser");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.MerchantSociety", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.Merchant", "Merchant")
+                        .WithMany("MerchantSocieties")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderManagement.Domain.Entities.Society", "Society")
+                        .WithMany("MerchantSocieties")
+                        .HasForeignKey("SocietyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Merchant");
+
+                    b.Navigation("Society");
+                });
+
             modelBuilder.Entity("OrderManagement.Domain.Entities.Order", b =>
                 {
+                    b.HasOne("OrderManagement.Domain.Entities.MerchantSociety", "MerchantSociety")
+                        .WithMany("Orders")
+                        .HasForeignKey("MerchantSocietyId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
                     b.HasOne("OrderManagement.Domain.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("MerchantSociety");
 
                     b.Navigation("User");
                 });
@@ -1100,6 +1642,35 @@ namespace OrderManagement.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.OrderStatusHistory", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.User", "ChangedByUser")
+                        .WithMany()
+                        .HasForeignKey("ChangedByUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("OrderManagement.Domain.Entities.Order", "Order")
+                        .WithMany("StatusHistories")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChangedByUser");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.OrderTemplate", b =>
+                {
+                    b.HasOne("OrderManagement.Domain.Entities.Merchant", "Merchant")
+                        .WithMany("OrderTemplates")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Merchant");
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Payment", b =>
@@ -1146,9 +1717,30 @@ namespace OrderManagement.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Catalog", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("OrderManagement.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Merchant", b =>
+                {
+                    b.Navigation("Catalogs");
+
+                    b.Navigation("MerchantSocieties");
+
+                    b.Navigation("OrderTemplates");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.MerchantSociety", b =>
+                {
+                    b.Navigation("CustomerProfiles");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Order", b =>
@@ -1156,6 +1748,13 @@ namespace OrderManagement.Persistence.Migrations
                     b.Navigation("OrderItems");
 
                     b.Navigation("Payments");
+
+                    b.Navigation("StatusHistories");
+                });
+
+            modelBuilder.Entity("OrderManagement.Domain.Entities.Society", b =>
+                {
+                    b.Navigation("MerchantSocieties");
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.User", b =>

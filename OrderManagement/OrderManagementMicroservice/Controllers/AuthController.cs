@@ -5,7 +5,7 @@ using OrderManagement.Application.Command.Auth;
 namespace OrderManagement.Microservice.Controllers
 {
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;

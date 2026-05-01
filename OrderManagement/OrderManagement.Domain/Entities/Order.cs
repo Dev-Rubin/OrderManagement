@@ -20,5 +20,8 @@ namespace OrderManagement.Domain.Entities
         public User User { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
         public ICollection<Payment> Payments { get; set; }
+        public int MerchantSocietyId { get; set; }
+        public MerchantSociety MerchantSociety { get; set; }
+        public List<OrderStatusHistory> StatusHistories { get; internal set; }
     }
 }

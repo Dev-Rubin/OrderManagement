@@ -53,6 +53,14 @@ namespace OrderManagement.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new DeliverySettingsConfiguration());
+            modelBuilder.ApplyConfiguration(new MerchantConfiguration());
+            modelBuilder.ApplyConfiguration(new SocietyConfiguration());
+            modelBuilder.ApplyConfiguration(new MerchantSocietyConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerProfileConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderStatusHistoryConfiguration());
+            modelBuilder.ApplyConfiguration(new CatalogConfiguration());
+            modelBuilder.ApplyConfiguration(new CatalogItemConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderTemplateConfiguration());
 
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties())
@@ -91,6 +99,14 @@ namespace OrderManagement.Infrastructure.Persistence
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Product> Products => Set<Product>();        
         public DbSet<DeliverySettings> DeliverySettings => Set<DeliverySettings>();
+        public DbSet<Merchant> Merchants => Set<Merchant>();
+        public DbSet<Society> Societies => Set<Society>();
+        public DbSet<MerchantSociety> MerchantSocieties => Set<MerchantSociety>();
+        public DbSet<CustomerProfile> CustomerProfiles => Set<CustomerProfile>();
+        public DbSet<OrderStatusHistory> OrderStatusHistories => Set<OrderStatusHistory>();
+        public DbSet<Catalog> Catalogs => Set<Catalog>();
+        public DbSet<CatalogItem> CatalogItems => Set<CatalogItem>();
+        public DbSet<OrderTemplate> OrderTemplates => Set<OrderTemplate>();
 
 
     }

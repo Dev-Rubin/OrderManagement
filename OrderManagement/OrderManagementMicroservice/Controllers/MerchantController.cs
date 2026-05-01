@@ -9,32 +9,32 @@ namespace OrderManagement.Microservice.Controllers
     [Route("api/[controller]")]
     public class MerchantController(IMediator mediator) : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("")]
         public async Task<IActionResult> GetAll()
             => Ok(await mediator.Send(new GetAllMerchantsQuery()));
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("get-merchant-by-id")]
+        public async Task<IActionResult> GetById([FromQuery]int id)
         {
             var result = await mediator.Send(new GetMerchantByIdQuery(id));
             return result.IsSuccessful ? Ok(result) : NotFound(result);
         }
 
-        [HttpPost]
+        [HttpPost("create-merchant")]
         public async Task<IActionResult> Create([FromBody] CreateMerchantCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPut]
+        [HttpPut("update-merchant")]
         public async Task<IActionResult> Update([FromBody] UpdateMerchantCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-by-id")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await mediator.Send(new DeleteMerchantCommand(id));

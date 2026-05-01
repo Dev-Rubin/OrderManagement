@@ -25,5 +25,13 @@ namespace OrderManagement.Infrastructure.Persistence.Interface
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<DeliverySettings> DeliverySettings => Set<DeliverySettings>();
+        public DbSet<Merchant> Merchants => Set<Merchant>();
+        public DbSet<Society> Societies => Set<Society>();
+        public DbSet<MerchantSociety> MerchantSocieties => Set<MerchantSociety>();
+        public DbSet<CustomerProfile> CustomerProfiles => Set<CustomerProfile>();
+        public DbSet<OrderStatusHistory> OrderStatusHistories => Set<OrderStatusHistory>();
+        public DbSet<Catalog> Catalogs => Set<Catalog>();
+        public DbSet<CatalogItem> CatalogItems => Set<CatalogItem>();
+        public DbSet<OrderTemplate> OrderTemplates => Set<OrderTemplate>();
     }
 }

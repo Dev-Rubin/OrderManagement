@@ -9,69 +9,69 @@ namespace OrderManagement.Microservice.Controllers
     [Route("api/[controller]")]
     public class CatalogController(IMediator mediator) : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("get-allcatalogs")]
         public async Task<IActionResult> GetAll([FromQuery] int? merchantId, [FromQuery] DateTime? date)
             => Ok(await mediator.Send(new GetAllCatalogsQuery { MerchantId = merchantId, Date = date }));
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("get-catalog-by-id")]
+        public async Task<IActionResult> GetById([FromQuery] int id)
         {
             var result = await mediator.Send(new GetCatalogByIdQuery(id));
             return result.IsSuccessful ? Ok(result) : NotFound(result);
         }
 
-        [HttpGet("active/{merchantId}")]
-        public async Task<IActionResult> GetActive(int merchantId)
+        [HttpGet("get-active-catalog")]
+        public async Task<IActionResult> GetActive([FromQuery] int merchantId)
         {
             var result = await mediator.Send(new GetActiveCatalogQuery(merchantId));
             return result.IsSuccessful ? Ok(result) : NotFound(result);
         }
 
-        [HttpPost]
+        [HttpPost("create-catalog")]
         public async Task<IActionResult> Create([FromBody] CreateCatalogCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPut]
+        [HttpPut("update-catalog")]
         public async Task<IActionResult> Update([FromBody] UpdateCatalogCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPatch("{id}/publish")]
-        public async Task<IActionResult> Publish(int id)
+        [HttpPatch("publish-catalog")]
+        public async Task<IActionResult> Publish([FromBody] int id)
         {
             var result = await mediator.Send(new PublishCatalogCommand(id));
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("delete-catalog-by-id")]
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             var result = await mediator.Send(new DeleteCatalogCommand(id));
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
         // Catalog Items
-        [HttpPost("item")]
+        [HttpPost("add-catalog-item")]
         public async Task<IActionResult> AddItem([FromBody] AddCatalogItemCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPut("item")]
+        [HttpPut("update-catalog-item")]
         public async Task<IActionResult> UpdateItem([FromBody] UpdateCatalogItemCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("item/{id}")]
-        public async Task<IActionResult> RemoveItem(int id)
+        [HttpDelete("remove-catalog-item-by-id")]
+        public async Task<IActionResult> RemoveItem([FromBody] int id)
         {
             var result = await mediator.Send(new RemoveCatalogItemCommand(id));
             return result.IsSuccessful ? Ok(result) : BadRequest(result);

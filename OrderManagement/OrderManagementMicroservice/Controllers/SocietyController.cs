@@ -9,32 +9,32 @@ namespace OrderManagement.Microservice.Controllers
     [Route("api/[controller]")]
     public class SocietyController(IMediator mediator) : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("get-all-societies")]
         public async Task<IActionResult> GetAll()
             => Ok(await mediator.Send(new GetAllSocietiesQuery()));
 
-        [HttpGet("{id}")]
+        [HttpGet("get-society-by-id")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await mediator.Send(new GetSocietyByIdQuery(id));
             return result.IsSuccessful ? Ok(result) : NotFound(result);
         }
 
-        [HttpPost]
+        [HttpPost("create-society")]
         public async Task<IActionResult> Create([FromBody] CreateSocietyCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPut]
+        [HttpPut("update-society")]
         public async Task<IActionResult> Update([FromBody] UpdateSocietyCommand command)
         {
             var result = await mediator.Send(command);
             return result.IsSuccessful ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-society-by-id")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await mediator.Send(new DeleteSocietyCommand(id));

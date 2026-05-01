@@ -1,14 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OrderManagement.Application.Command.Auth;
 using OrderManagement.Application.Query.User;
-using OrderManagement.Domain.Enums;
-using OrderManagement.Persistence.Persistence.Common;
 
 namespace OrderManagement.Microservice.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly IMediator _mediator;

@@ -7,7 +7,7 @@ namespace OrderManagement.Domain.Entities.Configurations
     {
         public void Configure(EntityTypeBuilder<Catalog> builder)
         {
-            builder.ToTable("Catalogs", "Order");
+            builder.ToTable("Catalogs", "order");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Title)

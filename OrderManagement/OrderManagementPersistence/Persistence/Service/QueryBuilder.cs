@@ -316,7 +316,7 @@ namespace OrderManagement.Infrastructure.Persistence.Service
 
         }
 
-        
+
         public List<TEntity> GetPageList(int pageSize, int pageIndex)
         {
             var query =
@@ -455,6 +455,8 @@ namespace OrderManagement.Infrastructure.Persistence.Service
                 return OrderByDesc(path);
             }
         }
+
+        public Task<bool> GetAnyAsync() => _query.AnyAsync();
 
     }
 

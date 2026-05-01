@@ -18,9 +18,6 @@ namespace OrderManagement.Persistence.Migrations
                 name: "order");
 
             migrationBuilder.EnsureSchema(
-                name: "Order");
-
-            migrationBuilder.EnsureSchema(
                 name: "user");
 
             migrationBuilder.EnsureSchema(
@@ -250,7 +247,7 @@ namespace OrderManagement.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Catalogs",
-                schema: "Order",
+                schema: "order",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -378,7 +375,7 @@ namespace OrderManagement.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_CatalogItems_Catalogs_CatalogId",
                         column: x => x.CatalogId,
-                        principalSchema: "Order",
+                        principalSchema: "order",
                         principalTable: "Catalogs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -450,11 +447,7 @@ namespace OrderManagement.Persistence.Migrations
                     CancelledAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CancellationReason = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    MerchantSocietyId = table.Column<int>(type: "integer", nullable: true),
-                    CatalogId = table.Column<int>(type: "integer", nullable: true),
-                    PaymentStatus = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
-                    CustomerFlatVilla = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    CustomerBlock = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    MerchantSocietyId = table.Column<int>(type: "integer", nullable: false),
                     AddedByUserId = table.Column<int>(type: "integer", nullable: true),
                     AddedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true, defaultValueSql: "NOW()"),
                     UpdatedByUserId = table.Column<int>(type: "integer", nullable: true),
@@ -463,13 +456,6 @@ namespace OrderManagement.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Catalogs_CatalogId",
-                        column: x => x.CatalogId,
-                        principalSchema: "Order",
-                        principalTable: "Catalogs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Orders_MerchantSocieties_MerchantSocietyId",
                         column: x => x.MerchantSocietyId,
@@ -596,20 +582,20 @@ namespace OrderManagement.Persistence.Migrations
                 columns: new[] { "Id", "AddedByUserId", "AddedDate", "Name", "UpdatedByUserId", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2026, 4, 28, 14, 19, 27, 232, DateTimeKind.Local).AddTicks(9451), "Batters", null, null },
-                    { 2, null, new DateTime(2026, 4, 28, 14, 19, 27, 234, DateTimeKind.Local).AddTicks(2760), "Accompaniments", null, null },
-                    { 3, null, new DateTime(2026, 4, 28, 14, 19, 27, 234, DateTimeKind.Local).AddTicks(2775), "Ready to Eats", null, null },
-                    { 4, null, new DateTime(2026, 4, 28, 14, 19, 27, 234, DateTimeKind.Local).AddTicks(2776), "Tiffin Items", null, null },
-                    { 5, null, new DateTime(2026, 4, 28, 14, 19, 27, 234, DateTimeKind.Local).AddTicks(2777), "Podis", null, null },
-                    { 6, null, new DateTime(2026, 4, 28, 14, 19, 27, 234, DateTimeKind.Local).AddTicks(2778), "Add Ons", null, null },
-                    { 7, null, new DateTime(2026, 4, 28, 14, 19, 27, 234, DateTimeKind.Local).AddTicks(2779), "Sweet & Namkeen", null, null }
+                    { 1, null, new DateTime(2026, 5, 1, 9, 56, 20, 488, DateTimeKind.Local).AddTicks(2745), "Batters", null, null },
+                    { 2, null, new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3041), "Accompaniments", null, null },
+                    { 3, null, new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3064), "Ready to Eats", null, null },
+                    { 4, null, new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3066), "Tiffin Items", null, null },
+                    { 5, null, new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3067), "Podis", null, null },
+                    { 6, null, new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3068), "Add Ons", null, null },
+                    { 7, null, new DateTime(2026, 5, 1, 9, 56, 20, 490, DateTimeKind.Local).AddTicks(3070), "Sweet & Namkeen", null, null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "order",
                 table: "DeliverySettings",
                 columns: new[] { "Id", "AddedByUserId", "AddedDate", "MaxDeliveryCharge", "MaxParcelCharge", "MinDeliveryCharge", "MinParcelCharge", "UpdatedByUserId", "UpdatedDate" },
-                values: new object[] { 1, null, new DateTime(2026, 4, 28, 14, 19, 27, 245, DateTimeKind.Local).AddTicks(1906), 40m, 15m, 25m, 5m, null, null });
+                values: new object[] { 1, null, new DateTime(2026, 5, 1, 9, 56, 20, 507, DateTimeKind.Local).AddTicks(801), 40m, 15m, 25m, 5m, null, null });
 
             migrationBuilder.InsertData(
                 schema: "order",
@@ -617,56 +603,56 @@ namespace OrderManagement.Persistence.Migrations
                 columns: new[] { "Id", "AddedByUserId", "AddedDate", "CategoryId", "Name", "PresentCost", "Quantity", "RevisedCost", "UpdatedByUserId", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2026, 4, 28, 14, 19, 27, 243, DateTimeKind.Local).AddTicks(9485), 1, "Idly Dosa Batter", 70m, "1 kg", null, null, null },
-                    { 2, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2058), 1, "Appam Batter", 100m, "1 kg", null, null, null },
-                    { 3, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2065), 1, "4 Millets", 140m, "1 kg", null, null, null },
-                    { 4, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2067), 1, "Pesarat Dosa", 120m, "1 kg", null, null, null },
-                    { 5, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2069), 1, "Rava Dosa", 100m, "1 kg", null, null, null },
-                    { 6, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2071), 1, "Paddu / Paniyaram Batter", 120m, "1 kg", null, null, null },
-                    { 7, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2072), 1, "Udin Vada Batter", 100m, "500 gms", null, null, null },
-                    { 8, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2074), 1, "Red Rice", 100m, "1 kg", null, null, null },
-                    { 9, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2075), 1, "Ragi Dosa", 100m, "1 kg", null, null, null },
-                    { 10, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2077), 1, "Banana Stem Batter", 120m, "1 kg", null, null, null },
-                    { 11, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2078), 1, "Moringa Dosa", 120m, "1 kg", null, null, null },
-                    { 12, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2080), 1, "Palak Dosa Batter", 120m, "1 kg", null, null, null },
-                    { 13, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2081), 1, "Peanut Dosa Batter", 120m, "1 kg", null, null, null },
-                    { 14, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2083), 1, "Curry Leaf Dosa", 120m, "1 kg", null, null, null },
-                    { 15, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2084), 1, "Multi Dhal / Adai Batter", 120m, "1 kg", null, null, null },
-                    { 16, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2108), 1, "Garlic Dosa Batter", 120m, "1 kg", null, null, null },
-                    { 17, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2110), 1, "Wheat Dosa Batter", 100m, "1 kg", null, null, null },
-                    { 18, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2111), 2, "Coconut Chutney", 30m, "100gms", null, null, null },
-                    { 19, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2113), 2, "Peanut Chutney", 30m, "100gms", 35m, null, null },
-                    { 20, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2584), 2, "Tomato Chutney", 30m, "100gms", 35m, null, null },
-                    { 21, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2589), 2, "Garlic Chutney", 35m, "100gms", 40m, null, null },
-                    { 22, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2591), 2, "Onion Chutney", 30m, "100gms", 35m, null, null },
-                    { 23, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2593), 2, "Mint Chutney", 30m, "100gms", 35m, null, null },
-                    { 24, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2595), 2, "Chennai Tiffin Sambar", 30m, "300gms", 35m, null, null },
-                    { 25, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2597), 2, "Coconut Milk", 100m, "300gms", null, null, null },
-                    { 26, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2598), 2, "Kadala Curry", 100m, "350gms", 105m, null, null },
-                    { 27, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2600), 3, "Plain Sevai", 100m, "500gms", null, null, null },
-                    { 28, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2620), 3, "Idiyappam", 15m, "1 no", null, null, null },
-                    { 29, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2622), 3, "Regular Idly", 10m, "1 no", 12m, null, null },
-                    { 30, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2624), 3, "Puttu / 1 Cylinder", 80m, "1 no", 90m, null, null },
-                    { 31, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2625), 3, "Mini Podi Idly", 100m, "30 nos", 105m, null, null },
-                    { 32, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2628), 3, "Mini Idly Sambar", 100m, "30 nos", 105m, null, null },
-                    { 33, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2630), 3, "Lemon Sevai", 75m, "250gms", 85m, null, null },
-                    { 34, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2632), 3, "Coconut Sevai", 100m, "250gms", 105m, null, null },
-                    { 35, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2634), 3, "Tomato Sevai", 100m, "250gms", 105m, null, null },
-                    { 36, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2649), 3, "Garlic Sevai", 100m, "250gms", 105m, null, null },
-                    { 37, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2651), 3, "Sweet Sevai", 100m, "250gms", 105m, null, null },
-                    { 38, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2653), 3, "Puliyogare Sevai", 100m, "250gms", 105m, null, null },
-                    { 39, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2656), 4, "Masal Dosa (with Sambar & Chutney)", 65m, "1", 70m, null, null },
-                    { 40, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2658), 4, "Puri with Kurma - 3 Pieces", 80m, "1", 90m, null, null },
-                    { 41, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2659), 4, "Chapathi", 15m, "1", null, null, null },
-                    { 42, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2661), 4, "Sunday Fuel - Pongal, Vada with Sambar & Chutney (Sunday only)", 80m, "1", 85m, null, null },
-                    { 43, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2663), 4, "Thatte Idly, Vada with Sambar & Chutney (Saturday only)", 60m, "1", 65m, null, null },
-                    { 44, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2665), 5, "Sambar Podi", 160m, "200gms", null, null, null },
-                    { 45, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2668), 5, "Idili/Dosa Podi", 160m, "200gms", null, null, null },
-                    { 46, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2670), 5, "Gunpowder Podi", 80m, "100gms", null, null, null },
-                    { 47, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2673), 5, "Groundnut Podi", 80m, "100gms", null, null, null },
-                    { 48, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2675), 6, "Grated Coconut", 160m, "200gms", 160m, null, null },
-                    { 49, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2677), 7, "Adhirasam (Kajaya)", 60m, "Pack of 4", 65m, null, null },
-                    { 50, null, new DateTime(2026, 4, 28, 14, 19, 27, 244, DateTimeKind.Local).AddTicks(2679), 7, "Thengapal Muruku (Big)", 60m, "Pack of 2", 65m, null, null }
+                    { 1, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(6440), 1, "Idly Dosa Batter", 70m, "1 kg", null, null, null },
+                    { 2, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9365), 1, "Appam Batter", 100m, "1 kg", null, null, null },
+                    { 3, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9373), 1, "4 Millets", 140m, "1 kg", null, null, null },
+                    { 4, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9392), 1, "Pesarat Dosa", 120m, "1 kg", null, null, null },
+                    { 5, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9393), 1, "Rava Dosa", 100m, "1 kg", null, null, null },
+                    { 6, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9395), 1, "Paddu / Paniyaram Batter", 120m, "1 kg", null, null, null },
+                    { 7, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9397), 1, "Udin Vada Batter", 100m, "500 gms", null, null, null },
+                    { 8, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9399), 1, "Red Rice", 100m, "1 kg", null, null, null },
+                    { 9, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9401), 1, "Ragi Dosa", 100m, "1 kg", null, null, null },
+                    { 10, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9403), 1, "Banana Stem Batter", 120m, "1 kg", null, null, null },
+                    { 11, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9405), 1, "Moringa Dosa", 120m, "1 kg", null, null, null },
+                    { 12, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9407), 1, "Palak Dosa Batter", 120m, "1 kg", null, null, null },
+                    { 13, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9442), 1, "Peanut Dosa Batter", 120m, "1 kg", null, null, null },
+                    { 14, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9445), 1, "Curry Leaf Dosa", 120m, "1 kg", null, null, null },
+                    { 15, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9447), 1, "Multi Dhal / Adai Batter", 120m, "1 kg", null, null, null },
+                    { 16, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9449), 1, "Garlic Dosa Batter", 120m, "1 kg", null, null, null },
+                    { 17, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9451), 1, "Wheat Dosa Batter", 100m, "1 kg", null, null, null },
+                    { 18, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9453), 2, "Coconut Chutney", 30m, "100gms", null, null, null },
+                    { 19, null, new DateTime(2026, 5, 1, 9, 56, 20, 505, DateTimeKind.Local).AddTicks(9455), 2, "Peanut Chutney", 30m, "100gms", 35m, null, null },
+                    { 20, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(4), 2, "Tomato Chutney", 30m, "100gms", 35m, null, null },
+                    { 21, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(10), 2, "Garlic Chutney", 35m, "100gms", 40m, null, null },
+                    { 22, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(13), 2, "Onion Chutney", 30m, "100gms", 35m, null, null },
+                    { 23, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(15), 2, "Mint Chutney", 30m, "100gms", 35m, null, null },
+                    { 24, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(17), 2, "Chennai Tiffin Sambar", 30m, "300gms", 35m, null, null },
+                    { 25, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(19), 2, "Coconut Milk", 100m, "300gms", null, null, null },
+                    { 26, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(49), 2, "Kadala Curry", 100m, "350gms", 105m, null, null },
+                    { 27, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(51), 3, "Plain Sevai", 100m, "500gms", null, null, null },
+                    { 28, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(53), 3, "Idiyappam", 15m, "1 no", null, null, null },
+                    { 29, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(55), 3, "Regular Idly", 10m, "1 no", 12m, null, null },
+                    { 30, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(57), 3, "Puttu / 1 Cylinder", 80m, "1 no", 90m, null, null },
+                    { 31, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(59), 3, "Mini Podi Idly", 100m, "30 nos", 105m, null, null },
+                    { 32, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(61), 3, "Mini Idly Sambar", 100m, "30 nos", 105m, null, null },
+                    { 33, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(63), 3, "Lemon Sevai", 75m, "250gms", 85m, null, null },
+                    { 34, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(65), 3, "Coconut Sevai", 100m, "250gms", 105m, null, null },
+                    { 35, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(67), 3, "Tomato Sevai", 100m, "250gms", 105m, null, null },
+                    { 36, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(69), 3, "Garlic Sevai", 100m, "250gms", 105m, null, null },
+                    { 37, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(71), 3, "Sweet Sevai", 100m, "250gms", 105m, null, null },
+                    { 38, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(90), 3, "Puliyogare Sevai", 100m, "250gms", 105m, null, null },
+                    { 39, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(92), 4, "Masal Dosa (with Sambar & Chutney)", 65m, "1", 70m, null, null },
+                    { 40, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(95), 4, "Puri with Kurma - 3 Pieces", 80m, "1", 90m, null, null },
+                    { 41, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(97), 4, "Chapathi", 15m, "1", null, null, null },
+                    { 42, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(99), 4, "Sunday Fuel - Pongal, Vada with Sambar & Chutney (Sunday only)", 80m, "1", 85m, null, null },
+                    { 43, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(101), 4, "Thatte Idly, Vada with Sambar & Chutney (Saturday only)", 60m, "1", 65m, null, null },
+                    { 44, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(103), 5, "Sambar Podi", 160m, "200gms", null, null, null },
+                    { 45, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(106), 5, "Idili/Dosa Podi", 160m, "200gms", null, null, null },
+                    { 46, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(107), 5, "Gunpowder Podi", 80m, "100gms", null, null, null },
+                    { 47, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(109), 5, "Groundnut Podi", 80m, "100gms", null, null, null },
+                    { 48, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(122), 6, "Grated Coconut", 160m, "200gms", 160m, null, null },
+                    { 49, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(124), 7, "Adhirasam (Kajaya)", 60m, "Pack of 4", 65m, null, null },
+                    { 50, null, new DateTime(2026, 5, 1, 9, 56, 20, 506, DateTimeKind.Local).AddTicks(127), 7, "Thengapal Muruku (Big)", 60m, "Pack of 2", 65m, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -683,7 +669,7 @@ namespace OrderManagement.Persistence.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Catalogs_MerchantId",
-                schema: "Order",
+                schema: "order",
                 table: "Catalogs",
                 column: "MerchantId");
 
@@ -749,12 +735,6 @@ namespace OrderManagement.Persistence.Migrations
                 table: "Orders",
                 column: "AddedDate",
                 filter: "\"IsDeleted\" = false");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_CatalogId",
-                schema: "order",
-                table: "Orders",
-                column: "CatalogId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_MerchantSocietyId",
@@ -892,6 +872,10 @@ namespace OrderManagement.Persistence.Migrations
                 schema: "user");
 
             migrationBuilder.DropTable(
+                name: "Catalogs",
+                schema: "order");
+
+            migrationBuilder.DropTable(
                 name: "Products",
                 schema: "order");
 
@@ -902,10 +886,6 @@ namespace OrderManagement.Persistence.Migrations
             migrationBuilder.DropTable(
                 name: "Categories",
                 schema: "order");
-
-            migrationBuilder.DropTable(
-                name: "Catalogs",
-                schema: "Order");
 
             migrationBuilder.DropTable(
                 name: "MerchantSocieties",
