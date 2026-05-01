@@ -65,6 +65,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 #endregion
 
+
+#region CORS Configuration
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+});
+
+#endregion
+
 var app = builder.Build();
 
 #region Apply Pending Migrations
@@ -86,6 +103,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 // Routing
 app.UseRouting();
+
+app.UseCors("AllowFrontend");
 // Global Exception Handling
 app.UseMiddleware<GlobalExceptionMiddleware>();
 // Authentication & Authorization
